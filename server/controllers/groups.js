@@ -25,5 +25,13 @@ exports.create = function(req, res) {
 };
 
 exports.all = function(req, res) {
-    res.send('asdd');
+    Group.find().sort('-created').populate('user', 'name username').exec(function(err, groups) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(groups);
+        }
+    });
 };

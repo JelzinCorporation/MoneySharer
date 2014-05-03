@@ -17,5 +17,13 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$locatio
             this.name = '';
             this.description = '';
         };
+
+        $scope.find = function() {
+            console.log('foo');
+            Groups.query(function(groups) {
+                console.log(groups);
+                $scope.groups = groups;
+            });
+        };
     }
 ]);

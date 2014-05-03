@@ -1,12 +1,14 @@
-<div class="" data-ng-controller="GroupController">
-    <h1>Example view from your new awesome package</h1>
-    <h2>Package: {{group.name}}</h2>
-    <ol>
-	<li>
-	    <a href="group/auth">Server route that requires authentication</a>
-	</li>
-	<li>
-		<a ui-sref="create group">Add a new group</a>
-	</li>
-    </ol>
+<div class="" data-ng-controller="GroupController" data-ng-init="find()">
+    <h1>Groups</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        <tr data-ng-repeat="group in groups">
+            <td><a ui-sref="edit group">{{group.name}}</a></td>
+            <td><a class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-trash"></span> Delete</a></td>
+        </tr>
+    </table>
+    <a class="btn btn-primary" ui-sref="create group">Add a new group</a>
 </div>
