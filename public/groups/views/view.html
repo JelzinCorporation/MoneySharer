@@ -1,0 +1,17 @@
+<section data-ng-controller="GroupController" data-ng-init="findOne()">
+    <span>{{group.created | date:'medium'}}</span> /
+    <span>{{group.user.name}}</span>
+    <h2>{{group.name}}</h2>
+    <div>{{group.description}}</div>
+    <div>
+        <a class="btn btn-default" href="/#!/groups/{{group._id}}/edit">
+            <span class="glyphicon glyphicon-edit"></span>
+            Edit
+        </a>
+        <a class="btn btn-default" data-ng-click="remove();">
+            <span class="glyphicon glyphicon-trash"></span>
+            Remove
+        </a>
+    </div>
+    
+</section>

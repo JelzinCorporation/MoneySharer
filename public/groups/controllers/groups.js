@@ -26,7 +26,7 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
             group.updated.push(new Date().getTime());
 
             group.$update(function() {
-                $location.path('groups');
+                $location.path('groups/' + group._id);
             });
         };
 

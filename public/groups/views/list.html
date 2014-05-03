@@ -6,8 +6,17 @@
             <th></th>
         </tr>
         <tr data-ng-repeat="group in groups">
-            <td><a data-ng-href="#!/groups/{{group._id}}/edit">{{group.name}}</a></td>
-            <td><a class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-trash"></span> Delete</a></td>
+            <td>
+                <a data-ng-href="#!/groups/{{group._id}}">
+                    {{group.name}}
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-default btn-sm" >
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete
+                </a>
+            </td>
         </tr>
     </table>
     <a class="btn btn-primary" ui-sref="create group">Add a new group</a>
