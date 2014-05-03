@@ -1,16 +1,17 @@
 <section data-ng-controller="GroupController" data-ng-init="findOne()">
     <span>{{group.created | date:'medium'}}</span> /
-    <span>{{group.user.name}}</span>
+    <span>{{group.admin.name}}</span>
     <h2>{{group.name}}</h2>
     <div>{{group.description}}</div>
-    <div>
+    <div>Admin: {{group.admin.username}}</div>
+    <div data-ng-show="global.user._id == group.admin">
         <a class="btn btn-default" href="/#!/groups/{{group._id}}/edit">
             <span class="glyphicon glyphicon-edit"></span>
             Edit
         </a>
-        <a class="btn btn-default" data-ng-click="remove();">
+        <a class="btn btn-default" data-ng-click="remove(group._id);">
             <span class="glyphicon glyphicon-trash"></span>
-            Remove
+            Delete
         </a>
     </div>
 </section>

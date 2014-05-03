@@ -50,7 +50,7 @@ GroupSchema.path('name').validate(function(name) {
 GroupSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    }).populate('admin', 'name username').exec(cb);
 };
 
 mongoose.model('Group', GroupSchema);
