@@ -19,6 +19,7 @@ exports.group = function(req, res, next, id) {
 exports.create = function(req, res) {
     var group = new Group(req.body);
     group.admin = req.user;
+    group.members = [req.user];
 
     group.save(function(err) {
         if (err) {
