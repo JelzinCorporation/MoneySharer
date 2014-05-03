@@ -30,6 +30,17 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
             });
         };
 
+        $scope.remove = function(groupId) {
+            $scope.groups = [];
+
+            Groups.get({
+                groupId: groupId
+            }, function(group) {
+                group.$remove();
+                $location.path('groups');
+            });
+        };
+
         $scope.find = function() {
             Groups.query(function(groups) {
                 $scope.groups = groups;

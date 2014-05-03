@@ -53,6 +53,21 @@ exports.update = function(req, res) {
     });
 };
 
+exports.destroy = function(req, res) {
+    var group = req.group;
+
+    group.remove(function(err) {
+        if (err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                group: group
+            });
+        } else {
+            res.jsonp(group);
+        }
+    });
+};
+
 exports.all = function(req, res) {
     Group.find().sort('-created').populate('user', 'name username').exec(function(err, groups) {
         if (err) {

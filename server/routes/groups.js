@@ -10,8 +10,7 @@ module.exports = function(app) {
     app.route('/groups/:groupId')
         .get(groups.show)
         .put(groups.update)
-        // .delete(groups.destroy);
-        ;
+        .delete(groups.destroy);
 
     // Finish with setting up the groupId param
     app.param('groupId', groups.group);
