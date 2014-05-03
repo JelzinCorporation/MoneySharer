@@ -31,18 +31,20 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
         };
 
         $scope.remove = function(groupId) {
-            for (var i in $scope.groups) {
-                if ($scope.groups[i]._id === groupId) {
-                    $scope.groups.splice(i, 1);
+            if (window.confirm('Do you really want to delete this group?')) {
+                for (var i in $scope.groups) {
+                    if ($scope.groups[i]._id === groupId) {
+                        $scope.groups.splice(i, 1);
+                    }
                 }
-            }
 
-            Groups.get({
-                groupId: groupId
-            }, function(group) {
-                group.$remove();
-                $location.path('groups');
-            });
+                Groups.get({
+                    groupId: groupId
+                }, function(group) {
+                    group.$remove();
+                    $location.path('groups');
+                });
+            }
         };
 
         $scope.find = function() {
