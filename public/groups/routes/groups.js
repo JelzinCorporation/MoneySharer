@@ -13,6 +13,10 @@ angular.module('mean.groups').config(['$stateProvider',
         state('all groups', {
             url: '/groups',
             templateUrl: 'public/groups/views/list.html'
+        }).
+        state('edit group', {
+            url: '/groups/:groupId/edit',
+            templateUrl: 'public/groups/views/edit.html'
         });
     }
 ]);

@@ -6,7 +6,7 @@
             <th></th>
         </tr>
         <tr data-ng-repeat="group in groups">
-            <td><a ui-sref="edit group">{{group.name}}</a></td>
+            <td><a data-ng-href="#!/groups/{{group._id}}/edit">{{group.name}}</a></td>
             <td><a class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-trash"></span> Delete</a></td>
         </tr>
     </table>

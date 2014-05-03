@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.groups').controller('GroupController', ['$scope', '$location', 'Global', 'Groups',
-    function($scope, $location, Global, Groups) {
+angular.module('mean.groups').controller('GroupController', ['$scope', '$stateParams', '$location', 'Global', 'Groups',
+    function($scope, $stateParams, $location, Global, Groups) {
         $scope.global = Global;
 
         $scope.create = function() {
@@ -18,11 +18,29 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$locatio
             this.description = '';
         };
 
+        $scope.update = function() {
+            var group = $scope.group;
+            if (!group.updated) {
+                group.updated = [];
+            }
+            group.updated.push(new Date().getTime());
+
+            group.$update(function() {
+                $location.path('groups');
+            });
+        };
+
         $scope.find = function() {
-            console.log('foo');
             Groups.query(function(groups) {
-                console.log(groups);
                 $scope.groups = groups;
+            });
+        };
+
+        $scope.findOne = function() {
+            Groups.get({
+                groupId: $stateParams.groupId
+            }, function(group) {
+                $scope.group = group;
             });
         };
     }

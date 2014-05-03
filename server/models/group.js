@@ -47,10 +47,10 @@ GroupSchema.path('name').validate(function(name) {
 /**
  * Statics
  */
-// GroupSchema.statics.load = function(id, cb) {
-//     this.findOne({
-//         _id: id
-//     }).populate('user', 'name username').exec(cb);
-// };
+GroupSchema.statics.load = function(id, cb) {
+    this.findOne({
+        _id: id
+    }).populate('user', 'name username').exec(cb);
+};
 
 mongoose.model('Group', GroupSchema);
