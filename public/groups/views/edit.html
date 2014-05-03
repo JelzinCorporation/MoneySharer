@@ -13,6 +13,14 @@
             </div>
         </div>
         <div class="form-group">
+            <label mean-token="'edit-members'" for="members" class="col-md-2 control-label">Members</label>
+            <ul>
+                <li data-ng-repeat="member in group.members">
+                    {{member.username}}
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Submit</button>
             </div>

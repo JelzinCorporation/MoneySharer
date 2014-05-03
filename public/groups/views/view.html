@@ -3,7 +3,14 @@
     <span>{{group.admin.name}}</span>
     <h2>{{group.name}}</h2>
     <div>{{group.description}}</div>
-    <div>Admin: {{group.admin.username}}</div>
+    <h4>Members</h4>
+    <ul>
+        <li data-ng-repeat="member in group.members">
+            {{member.username}}
+        </li>
+    </ul>
+    <h4>Admin</h4>
+    <div>{{group.admin.username}}</div>
     <div data-ng-show="global.user._id == group.admin._id">
         <a class="btn btn-default" href="/#!/groups/{{group._id}}/edit">
             <span class="glyphicon glyphicon-edit"></span>
