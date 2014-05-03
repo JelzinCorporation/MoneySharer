@@ -11,7 +11,7 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
             });
 
             group.$save(function(response) {
-                $location.path('group/' + response._id);
+                $location.path('groups/' + response._id);
             });
 
             this.name = '';
