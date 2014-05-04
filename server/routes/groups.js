@@ -5,7 +5,7 @@ var groups = require('../controllers/groups');
 module.exports = function(app) {
 
     app.route('/groups')
-        .get(groups.all)
+        .get(groups.myGroups)
         .post(groups.create);
     app.route('/groups/:groupId')
         .get(groups.show)

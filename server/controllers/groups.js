@@ -80,3 +80,23 @@ exports.all = function(req, res) {
         }
     });
 };
+
+exports.myGroups = function(req, res) {
+    Group
+    .find({
+        $or: [
+            {admin: req.user},
+            {members: req.user}
+        ]
+    })
+    .sort('-created')
+    .exec(function(err, groups) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(groups);
+        }
+    });
+};
