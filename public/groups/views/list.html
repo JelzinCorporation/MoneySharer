@@ -2,11 +2,15 @@
     <h1>Groups</h1>
     <table class="table table-striped" data-ng-show="groups.length > 0">
         <tr>
+            <th></th>
             <th>Name</th>
             <th>Members</th>
             <th></th>
         </tr>
         <tr data-ng-repeat="group in groups">
+            <td>
+                <span data-ng-show="global.user._id == group.admin"class="glyphicon glyphicon-user"></span>
+            </td>
             <td>
                 <a data-ng-href="#!/groups/{{group._id}}">
                     {{group.name}}
