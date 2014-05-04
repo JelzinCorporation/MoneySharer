@@ -21,6 +21,10 @@
             </td>
             <td>
                 <div data-ng-show="global.user._id == group.admin">
+                    <a class="btn btn-default btn-sm" href="/#!/groups/{{group._id}}/edit">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Edit
+                    </a>
                     <a class="btn btn-default btn-sm" data-ng-click="remove(group._id);">
                         <span class="glyphicon glyphicon-trash"></span>
                         Delete
