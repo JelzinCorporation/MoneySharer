@@ -30,6 +30,9 @@ var GroupSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'User'
     }],
+    invitedUsers: [{
+        type: String
+    }],
     description: {
         type: String,
         default: '',

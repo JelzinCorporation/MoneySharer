@@ -33,6 +33,40 @@
             </td>
         </tr>
     </table>
-    <h1 data-ng-hide="!groups || groups.length">No groups yet. <br> Create one or let somebody invite you.</h1>
+
+    <div data-ng-show="groupInvitations.length > 0">
+        <h1>Invitations</h1>
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Members</th>
+                <th>Inviters</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="invite in groupInvitations">
+                <td>
+                </td>
+                <td>
+                    <a data-ng-href="#!/groups/{{invite.group._id}}">
+                        {{invite.group.name}}
+                    </a>
+                </td>
+                <td>
+                    {{invite.group.members.length}}
+                </td>
+                <td>
+                    <span ng-repeat="inviter in invite.inviters">
+                        {{inviter.username}}{{$last ? '' : ', '}}
+                    </span>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <h1 data-ng-hide="!groups || groups.length || !groupInvitations || groupInvitations.length">No groups and invitations yet. <br> Create one or let somebody invite you.</h1>
     <a class="btn btn-primary" ui-sref="create group">Add a new group</a>
 </div>

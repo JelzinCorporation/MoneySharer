@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('mean.groups').controller('GroupController', ['$scope', '$stateParams', '$location', 'Global', 'Groups',
-    function($scope, $stateParams, $location, Global, Groups) {
+angular.module('mean.groups').controller('GroupController', ['$scope', '$stateParams', '$location', 'Global', 'Groups', 'GroupInvitations',
+    function($scope, $stateParams, $location, Global, Groups, GroupInvitations) {
         $scope.global = Global;
+        $scope.invitedUsers = [];
 
         $scope.create = function() {
             var group = new Groups({
                 name: this.name,
-                description: this.description
+                description: this.description,
+                invitedUsers: this.invitedUsers
             });
 
             group.$save(function(response) {
@@ -51,6 +53,9 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
             Groups.query(function(groups) {
                 $scope.groups = groups;
             });
+            GroupInvitations.query(function(invitations) {
+                $scope.groupInvitations = invitations;
+            });
         };
 
         $scope.findOne = function() {
@@ -59,6 +64,20 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
             }, function(group) {
                 $scope.group = group;
             });
+        };
+
+        $scope.addInvitation = function() {
+            var newInvite = $scope.newInvitation;
+            var invitedUsers = $scope.group ? $scope.group.invitedUsers : $scope.invitedUsers;
+
+            if (invitedUsers.indexOf(newInvite) > -1) {
+                return;
+            }
+
+            // do regex email filter magic here
+
+            invitedUsers.push(newInvite);
+            $scope.newInvitation = '';
         };
     }
 ]);

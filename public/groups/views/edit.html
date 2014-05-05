@@ -14,11 +14,31 @@
         </div>
         <div class="form-group">
             <label mean-token="'edit-members'" for="members" class="col-md-2 control-label">Members</label>
-            <ul>
-                <li data-ng-repeat="member in group.members">
-                    {{member.username}}
-                </li>
-            </ul>
+            <div class="col-md-10">
+                <ul>
+                    <li data-ng-repeat="member in group.members">
+                        {{member.username}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Inivites</label>
+            <div class="col-md-10">
+                <ul data-ng-show="group.invitedUsers.length">
+                    <li data-ng-repeat="mail in group.invitedUsers">
+                        {{mail}}
+                    </li>
+                </ul>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="addInvitation()">Add</button>
+                    </span>
+                    <input type="text" class="form-control" data-ng-model="newInvitation" placeholder="Email">
+                </div>
+            </div>
+        </div>
+
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

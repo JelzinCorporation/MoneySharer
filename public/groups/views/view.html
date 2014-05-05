@@ -9,6 +9,14 @@
             {{member.username}}
         </li>
     </ul>
+    <div data-ng-show="group.invitedUsers.length">
+        <h4>Inivited Users</h4>
+        <ul>
+            <li data-ng-repeat="mail in group.invitedUsers">
+                {{mail}}
+            </li>
+        </ul>
+    </div>
     <h4>Admin</h4>
     <div>{{group.admin.username}}</div>
     <div data-ng-show="global.user._id == group.admin._id">
