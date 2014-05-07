@@ -34,6 +34,13 @@
         </tr>
     </table>
 
+    <h1 data-ng-hide="!groups || groups.length">
+        No groups yet.<br>Create one or let somebody invite you.
+    </h1>
+    <a class="btn btn-primary" ui-sref="create group">Add a new group</a>
+</div>
+
+<div data-ng-controller="GroupInvitationController" data-ng-init="find()">
     <div data-ng-show="groupInvitations.length > 0">
         <h1>Invitations</h1>
         <table class="table table-striped">
@@ -61,12 +68,16 @@
                     </span>
                 </td>
                 <td>
+                    <a class="btn btn-success btn-sm" ng-click="join(invite._id)">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        Join
+                    </a>
+                    <a class="btn btn-warning btn-sm" ng-click="discard(invite._id)">
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                        Discard
+                    </a>
                 </td>
             </tr>
         </table>
     </div>
-
-
-    <h1 data-ng-hide="!groups || groups.length || !groupInvitations || groupInvitations.length">No groups and invitations yet. <br> Create one or let somebody invite you.</h1>
-    <a class="btn btn-primary" ui-sref="create group">Add a new group</a>
 </div>

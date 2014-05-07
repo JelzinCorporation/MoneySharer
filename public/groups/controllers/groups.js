@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.groups').controller('GroupController', ['$scope', '$stateParams', '$location', 'Global', 'Groups', 'GroupInvitations',
-    function($scope, $stateParams, $location, Global, Groups, GroupInvitations) {
+angular.module('mean.groups').controller('GroupController', ['$scope', '$stateParams', '$location', 'Global', 'Groups',
+    function($scope, $stateParams, $location, Global, Groups) {
         $scope.global = Global;
         $scope.invitedUsers = [];
 
@@ -52,9 +52,6 @@ angular.module('mean.groups').controller('GroupController', ['$scope', '$statePa
         $scope.find = function() {
             Groups.query(function(groups) {
                 $scope.groups = groups;
-            });
-            GroupInvitations.query(function(invitations) {
-                $scope.groupInvitations = invitations;
             });
         };
 

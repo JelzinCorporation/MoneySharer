@@ -4,45 +4,16 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    GroupInvitation = mongoose.model('GroupInvitation');
+    GroupInvitation = mongoose.model('GroupInvitation'),
+    Group = mongoose.model('Group'),
+    _ = require('lodash');
 
-// exports.groupInvitation = function(req, res, next, id) {
-//     GroupInvitation.load(id, function(err, groupInvitation) {
-//         if (err) return next(err);
-//         if (!groupInvitation) return next(new Error('Failed to load groupInvitation ' + id));
-//         req.groupInvitation = groupInvitation;
-//         next();
-//     });
-// };
-
-exports.create = function(req, res) {
-    var groupInvitation = new GroupInvitation(req.body);
-    groupInvitation.inviter = [req.user];
-
-    groupInvitation.save(function(err) {
-        if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                groupInvitation: groupInvitation
-            });
-        } else {
-            res.jsonp(groupInvitation);
-        }
-    });
-};
-
-exports.destroy = function(req, res) {
-    var groupInvitation = req.groupInvitation;
-
-    groupInvitation.remove(function(err) {
-        if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                groupInvitation: groupInvitation
-            });
-        } else {
-            res.jsonp(groupInvitation);
-        }
+exports.groupInvitation = function(req, res, next, id) {
+    GroupInvitation.load(id, function(err, groupInvitation) {
+        if (err) return next(err);
+        if (!groupInvitation) return next(new Error('Failed to load groupInvitation ' + id));
+        req.groupInvitation = groupInvitation;
+        next();
     });
 };
 
@@ -65,10 +36,53 @@ exports.mine = function(req, res) {
     });
 };
 
-// exports.join = function(req, res) {
-//     // join group
-// };
+exports.join = function(req, res) {
+    var invite = req.groupInvitation;
 
-// exports.discard = function(req, res) {
-//     // disvard group invitation
-// };
+    Group
+    .findOne({
+        _id: invite.group
+    }).exec(function(err, group) {
+        if (err) {
+            // err handling
+            console.error(err);
+        } else {
+            if (group.members.indexOf(req.user._id) === -1) {
+                group.members.push(req.user);
+            }
+            group.invitedUsers = _.without(group.invitedUsers, req.user.email);
+            group.save(function() {});
+            invite.remove(function() {});
+            res.jsonp(group);
+        }
+    });
+};
+
+exports.discard = function(req, res) {
+    var invite = req.groupInvitation;
+
+    Group
+    .findOne({
+        _id: invite.group
+    }).exec(function(err, group) {
+        if (err) {
+            // err handling
+            console.error(err);
+        } else {
+            invite.remove(function(err) {
+                if (err) {
+                    return res.send('users/signup', {
+                        errors: err.errors,
+                        groupInvitation: invite
+                    });
+                } else {
+                    group.invitedUsers = _.without(group.invitedUsers, req.user.email);
+                    group.save(function() {});
+                    res.jsonp(invite);
+                }
+            });
+        }
+    });
+
+
+};

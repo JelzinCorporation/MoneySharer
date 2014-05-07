@@ -32,11 +32,11 @@ var GroupInvitationSchema = new Schema({
 /**
  * Statics
  */
-// GroupInvitationSchema.statics.load = function(id, cb) {
-//     this.findOne({
-//         _id: id
-//     })
-//     .exec(cb);
-// };
+GroupInvitationSchema.statics.load = function(id, cb) {
+    this.findOne({
+        _id: id
+    })
+    .exec(cb);
+};
 
 mongoose.model('GroupInvitation', GroupInvitationSchema);
