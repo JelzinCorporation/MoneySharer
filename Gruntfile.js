@@ -103,6 +103,11 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma/karma.conf.js'
             }
+        },
+        protractor: {
+            cucumber: {
+                configFile: 'test/cucumber/protractorConfig.js'
+            }
         }
     });
 
@@ -118,6 +123,9 @@ module.exports = function(grunt) {
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+
+    // cucumber tests
+    grunt.registerTask('cucumber', ['protractor:cucumber']);
 
     // For Heroku users only.
     // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
