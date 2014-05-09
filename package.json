@@ -37,7 +37,7 @@
   "scripts": {
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "node node_modules/bower/bin/bower install; ./node_modules/.bin/webdriver-manager update"
+    "postinstall": "node node_modules/bower/bin/bower install; ./node_modules/.bin/webdriver-manager update; npm install -g phantomjs"
   },
   "dependencies": {
     "assetmanager": "^0.1.2",

@@ -105,8 +105,11 @@ module.exports = function(grunt) {
             }
         },
         protractor: {
-            cucumber: {
-                configFile: 'test/cucumber/protractorConfig.js'
+            cucumberPhantom: {
+                configFile: 'test/cucumber/protractorConfigPhantom.js'
+            },
+            cucumberChrome: {
+                configFile: 'test/cucumber/protractorConfigChrome.js'
             }
         }
     });
@@ -125,7 +128,8 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
 
     // cucumber tests
-    grunt.registerTask('cucumber', ['protractor:cucumber']);
+    grunt.registerTask('cucumber', ['protractor:cucumberPhantom']);
+    grunt.registerTask('cucumber-chrome', ['protractor:cucumberChrome']);
 
     // For Heroku users only.
     // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
