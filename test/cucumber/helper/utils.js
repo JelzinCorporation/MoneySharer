@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Finds an input through various methods and retries if needed
  *
@@ -21,7 +23,7 @@ module.exports.findElement = function(driver, by, arg1, index, attempts) {
         return driver.findElements(by.xpath('//*[text()="' + arg1 + '"]'));
       } else {
         return driver.findElements(by.linkText(arg1));
-      };
+      }
     }
   }()).then(function(elements) {
     var element = elements[index === null ? (elements.length - 1) : index];
@@ -85,7 +87,8 @@ module.exports.findInput = function(driver, by, arg1, attempts) {
  */
 module.exports.resolveParameter = function(arg1) {
   if (arg1.indexOf('%') !== -1) { // replace placeholder with parameter value if needed
-   arg1 = parameters[arg1.replace(/%/g, '')];
+   // arg1 = parameters[arg1.replace(/%/g, '')];
+   arg1 = arg1.replace(/%/g, '');
   }
   return arg1;
 };

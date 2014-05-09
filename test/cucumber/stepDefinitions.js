@@ -1,5 +1,8 @@
 'use strict';
 
+/* global protractor, browser, by, element, $ */
+/* jshint unused:false */
+
 var utils = require('./helper/utils');
 // Use the external Chai As Promised to deal with resolving promises in
 // expectations.
@@ -8,7 +11,7 @@ var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
 var assert = chai.assert;
-var expect = chai.expect;
+var chaiExpect = chai.expect;
 var baseUrl = 'http://localhost:3000/#!';
 var driver = browser.driver;
 
@@ -32,21 +35,22 @@ module.exports = function() {
     });
 
     this.Then(/^it should still do normal tests$/, function(next) {
-        expect(true).to.equal(true);
+        chaiExpect(true).to.equal(true);
         next();
     });
 
     this.Then(/^it should expose the correct global variables$/, function(next) {
-        expect(protractor).to.exist;
-        expect(browser).to.exist;
-        expect(by).to.exist;
-        expect(element).to.exist;
-        expect($).to.exist;
+        var tmp;
+        tmp = chaiExpect(protractor).to.exist;
+        tmp = chaiExpect(browser).to.exist;
+        tmp = chaiExpect(by).to.exist;
+        tmp = chaiExpect(element).to.exist;
+        tmp = chaiExpect($).to.exist;
         next();
     });
 
     this.Then(/the title should equal "([^"]*)"$/, function(text, next) {
-        expect(browser.getTitle()).to.eventually.equal(text).and.notify(next);
+        chaiExpect(browser.getTitle()).to.eventually.equal(text).and.notify(next);
     });
 
     /**
@@ -134,17 +138,17 @@ module.exports = function() {
             if (text === arg2) {
                 callback();
             } else {
-                callback.fail('Expected "' + arg1 + '" to be "' + arg2 + '"');
+                callback.fail('chaiExpected "' + arg1 + '" to be "' + arg2 + '"');
             }
         });
     });
 
     this.Then(/^model "([^"]*)" should have length "([^"]*)"$/, function(arg1, arg2, callback) {
-        ptor.findElement(by.model(arg1)).then(function(el) {
+        protractor.findElement(by.model(arg1)).then(function(el) {
             if (el.length === arg2) {
                 callback();
             } else {
-                callback.fail('Expected "' + arg1 + '" to have length "' + arg2 + '"');
+                callback.fail('chaiExpected "' + arg1 + '" to have length "' + arg2 + '"');
             }
         });
     });
@@ -352,21 +356,11 @@ module.exports = function() {
     });
 
     this.Given(/^I am logged in as "([^"]*)"$/, function(arg1, callback) {
-        var users = db.get(models.users || 'users');
-
-        users.findOne({
-            firstName: arg1
-        }).on('success', function(user) {
-            if (!user) {
-                callback.fail(arg1 + ' not found in user collection');
-            }
-
-            driver.get(baseUrl + '/login');
-            driver.findElement(by.id('emailInput')).sendKeys(user.email);
-            driver.findElement(by.id('passwordInput')).sendKeys('password');
-            driver.findElement(by.tagName('button')).click().then(function() {
-                return callback();
-            });
+        driver.get(baseUrl + '/login');
+        driver.findElement(by.id('emailInput')).sendKeys('test@test.com');
+        driver.findElement(by.id('passwordInput')).sendKeys('12345678');
+        driver.findElement(by.tagName('button')).click().then(function() {
+            return callback();
         });
     });
 
@@ -521,7 +515,8 @@ module.exports = function() {
         };
 
         if (arg2.indexOf('%') !== -1) {
-            arg2 = parameters[arg2.replace(/%/g, '')];
+            // arg2 = parameters[arg2.replace(/%/g, '')];
+            arg2 = arg2.replace(/%/g, '');
         }
 
         if (arg1.indexOf('#') !== -1) {

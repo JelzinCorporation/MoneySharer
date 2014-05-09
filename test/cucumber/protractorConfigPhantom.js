@@ -7,4 +7,4 @@ exports.config = {
         require: 'test/cucumber/stepDefinitions.js'
     },
     specs: ['features/*.feature']
-}
+};
