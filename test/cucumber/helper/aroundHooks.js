@@ -8,7 +8,7 @@ var myAroundHooks = function() {
 
         // this.bootFullTextSearchServer();
         // this.createSomeUsers();
-      
+
         // When the "before" duty is finished, tell Cucumber to execute the scenario
         // and pass a function to be called when the scenario is finished:
 
