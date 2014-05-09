@@ -11,3 +11,8 @@ Feature: Running Cucumber with Protractor
   Scenario: shit
     Given I wait
     Then I am on "http://www.google.de"
+
+  Scenario: testing foo
+    Given I am on "login"
+    When I press "Login"
+    Then I should see "Sign up"

@@ -6,7 +6,7 @@
  * @params {int} attempts The amount of retry attempts
  * @returns WebdriverElement
  */
-module.exports.findElement = function(arg1, index, attempts) {
+module.exports.findElement = function(driver, by, arg1, index, attempts) {
   var self = this;
   index = index || null;
   attempts = attempts || 0;
@@ -28,13 +28,13 @@ module.exports.findElement = function(arg1, index, attempts) {
     if (element) {
       return element;
     } else if (attempts < 5) {
-      return self.findElement(arg1, index, (attempts + 1));
+      return self.findElement(driver, by, arg1, index, (attempts + 1));
     } else {
       throw new Error('Element not found with arg "' + arg1 + '"');
     }
   }, function(e) {
     if (attempts < 5) {
-      return self.findElement(arg1, index, (attempts + 1));
+      return self.findElement(driver, by, arg1, index, (attempts + 1));
     } else {
       return e;
     }
@@ -48,7 +48,7 @@ module.exports.findElement = function(arg1, index, attempts) {
  * @params {int} attempts The amount of retry attempts
  * @returns WebdriverElement
  */
-module.exports.findInput = function(arg1, attempts) {
+module.exports.findInput = function(driver, by, arg1, attempts) {
   var self = this;
   attempts = attempts || 0;
 
@@ -70,7 +70,7 @@ module.exports.findInput = function(arg1, attempts) {
     return input;
   }, function(e) {
     if (attempts < 5) {
-      return self.findInput(arg1, (attempts + 1));
+      return self.findInput(driver, by, arg1, (attempts + 1));
     } else {
       return e;
     }

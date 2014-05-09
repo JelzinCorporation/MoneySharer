@@ -1,3 +1,5 @@
+'use strict';
+
 var utils = require('./helper/utils');
 // Use the external Chai As Promised to deal with resolving promises in
 // expectations.
@@ -5,17 +7,18 @@ var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
+var assert = chai.assert;
 var expect = chai.expect;
+var baseUrl = 'http://localhost:3000/#!';
+var driver = browser.driver;
 
 var select = function(arg1, arg2, index, callback) {
-    return utils.findInput(arg2, index).then(function(select) {
+    return utils.findInput(driver, by, arg2, index).then(function(select) {
         return select.findElement(by.xpath('//option[text()="' + arg1 + '"]'));
     }).then(function(option) {
         return option.click();
     }).then(callback);
 };
-
-var driver = browser.driver;
 
 module.exports = function() {
 
@@ -220,7 +223,7 @@ module.exports = function() {
      * @params {string} arg2 The text to match
      */
     this.Then(/^the "([^"]*)" input should equal "([^"]*)"$/, function(arg1, arg2, callback) {
-        utils.findInput(arg1).then(function(input) {
+        utils.findInput(driver, by, arg1).then(function(input) {
             return input.getAttribute('value');
         }).then(function(value) {
             assert.equal(value, arg2);
@@ -379,7 +382,7 @@ module.exports = function() {
      * @param string The text to input
      */
     this.Given(/^I fill in "([^"]*)" with "([^"]*)"$/, function(arg1, arg2, callback) {
-        utils.findInput(arg1).then(function(input) {
+        utils.findInput(driver, by, arg1).then(function(input) {
             return input.clear().then(function() {
                 return input.sendKeys(utils.resolveParameter(arg2)).then(function() {
                     return input.sendKeys(protractor.Key.TAB);
@@ -625,7 +628,7 @@ module.exports = function() {
     });
 
     this.Given(/^I press "([^"]*)"$/, function(arg1, callback) {
-        utils.findElement(arg1).then(function(button) {
+        utils.findElement(driver, by, arg1).then(function(button) {
             return button.click();
         }).then(callback);
     });
@@ -640,7 +643,7 @@ module.exports = function() {
      * @param {string} arg1 The text to match
      */
     this.Given(/^I click on "([^"]*)"$/, function(arg1, callback) {
-        utils.findElement(arg1).then(function(el) {
+        utils.findElement(driver, by, arg1).then(function(el) {
             return el.click();
         }).then(callback);
     });
@@ -654,7 +657,7 @@ module.exports = function() {
      * @param {string} arg2 The css locator
      */
     this.Given(/^I click on the "([^"]*)" "([^"]*)" element$/, function(arg1, arg2, callback) {
-        utils.findElement(arg2, utils.getIndex(arg1)).then(function(el) {
+        utils.findElement(driver, by, arg2, utils.getIndex(arg1)).then(function(el) {
             return el.click();
         }).then(callback);
     });
@@ -668,7 +671,7 @@ module.exports = function() {
      * @param {string} arg2 The button text
      */
     this.Given(/^I click on the "([^"]*)" "([^"]*)" button$/, function(arg1, arg2, callback) {
-        utils.findElement(utils.getIndex(arg1), arg2).then(function(el) {
+        utils.findElement(driver, by, utils.getIndex(arg1), arg2).then(function(el) {
             return el.click();
         }).then(callback);
     });

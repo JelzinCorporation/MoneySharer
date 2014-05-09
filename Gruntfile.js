@@ -106,10 +106,26 @@ module.exports = function(grunt) {
         },
         protractor: {
             cucumberPhantom: {
-                configFile: 'test/cucumber/protractorConfigPhantom.js'
+                options: {
+                    configFile: 'test/cucumber/protractorConfigPhantom.js',
+                    args: {
+                        includeStackTrace: true,
+                        cucumberOpts: {
+                            format: 'pretty'
+                        }
+                    }
+                }
             },
             cucumberChrome: {
-                configFile: 'test/cucumber/protractorConfigChrome.js'
+                options: {
+                    configFile: 'test/cucumber/protractorConfigChrome.js',
+                    args: {
+                        includeStackTrace: true,
+                        cucumberOpts: {
+                            format: 'pretty'
+                        }
+                    }
+                }
             }
         }
     });
